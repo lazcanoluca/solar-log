@@ -12,10 +12,13 @@ export const GlobalStyle = createGlobalStyle`
         --darkMain: #1c1c1c;
         --medEmphasized: #e63946;
 
-        --fontHuge: 2.5rem;
+        --fontHuge: 5rem;
+        --fontVeryBig: 2.5rem;
         --fontBig: 1.5rem;
         --fontMed: 1.2rem;
         --fontSmall: 1rem;
+
+        --headerHeight: 100px;
     }
 
     * {
@@ -48,7 +51,6 @@ export const GlobalStyle = createGlobalStyle`
 
         p {
             font-size: 1rem;
-            color: red;
         }
     }
 
