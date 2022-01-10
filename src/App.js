@@ -13,6 +13,6 @@ const App = () => (
     <Header />
     <Home />
   </div>
-)
+);
 
 export default App;
