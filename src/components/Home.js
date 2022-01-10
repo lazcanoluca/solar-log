@@ -4,14 +4,29 @@ import React, { useEffect, useState } from 'react';
 import HeroSection from './HeroSection';
 
 // API
-import { fetchObject, fetchObjects, fetchType } from '../OpenSolarSystemAPI/config';
+import { fetchObject, fetchObjects, fetchType, fetchFilteredObjects } from '../OpenSolarSystemAPI/config';
 import { featuredImage } from '../UnsplashAPI/config';
+import FiltersBar from './FiltersBar';
+
+// Hooks
+import { useFilteredObjects } from '../hooks/useFilteredObjects';
 
 const Home = () => {
+
+    const {
+        filters,
+        objects,
+        loading,
+        error,
+        setFilters,
+        setIsLoadingMore,
+    } = useFilteredObjects();
 
     const objectId = 'lune';
     const search_term = 'stars';
     const body_type = 'Moon';
+
+    // const filters = filteredObjects;
 
     // const objects = fetchObjects();
     // const object = fetchObject(objectId);
@@ -21,15 +36,16 @@ const Home = () => {
 
     const featured_image = featuredImage(search_term);
 
-    const [objects, setObjects] = useState([]);
+    // const [objects, setObjects] = useState([]);
 
-    useEffect(() => {
-        fetchType(body_type).then(data => setObjects(data));
-    }, [])
+    // useEffect(() => {
+    //     fetchFilteredObjects(filters).then(data => setObjects(data));
+    // }, [])
 
     return (
         <>
             <HeroSection image={featured_image}/>
+            <FiltersBar setFilters={setFilters}/>
             <p>{ JSON.stringify(objects) }</p>
             <p>{ objects.length }</p>
         </>

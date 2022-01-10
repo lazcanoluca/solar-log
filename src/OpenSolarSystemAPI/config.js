@@ -39,6 +39,7 @@ filters = {
         'dwarf_planets' = bool,
         'asteroids' = bool,
         'comets' = bool,
+        'moons' = bool,
     },
     order_by = string,
     order_direction = bool, (true = asc, false = desc)
@@ -75,23 +76,29 @@ filters = {
 export const fetchFilteredObjects = async (
     // destructure "filters", the object which contains the state of the filters, set with "setFilters" in "useFilters" hook,
     // updated each time you set filters and click on "set filters" button
-    {
-        include_body_types :{ star, planets, dwarf_planets, asteroids, comets },
-        order_by,
-        order_direction,
-        current_page,
-        min_mass,
-        max_mass,
-        min_radius,
-        max_radius,
-        search_term
-    } ) => {
+    { 
+            include_body_types: { star, planets, dwarf_planets, asteroids, comets, moons },
+            // order_by,
+            // order_direction,
+            // min_mass,
+            // max_mass,
+            // min_radius,
+            // max_radius,
+            // search_term
+    }) => {
 
-    const url = `${ALL_BODIES_URL}/?
-        ${!star && '&filter[]=bodyType,neq,Star'}
-        ${!planets && '&filter[]=bodyType,neq,Planet'}
-        ${`&page=${current_page}`}
-        `
+    const page = '1';
+
+    const url = `${ALL_BODIES_URL}/?`
+        +`${!star ? '&filter[]=bodyType,neq,Star' : ''}`
+        +`${!planets ? '&filter[]=bodyType,neq,Planet' : ''}`
+        +`${!dwarf_planets ? '&filter[]=bodyType,neq,Dwarf%20planet' : ''}`
+        +`${!asteroids ? '&filter[]=bodyType,neq,Asteroid' : ''}`
+        +`${!comets ? '&filter[]=bodyType,neq,Comet' : ''}`
+        +`${!moons ? '&filter[]=bodyType,neq,Moon' : ''}`
+        +`${`&page=${page},5`}`
+
+    console.log(url);
 
     return await fetch(url)
         .then(response => response.json())
