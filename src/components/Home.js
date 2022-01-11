@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 
 // Components
 import HeroSection from './HeroSection';
-
+import FiltersBar from './FiltersBar';
+import Grid from './Grid';
+import Thumb from './Thumb';
 // API
 import { fetchObject, fetchObjects, fetchType, fetchFilteredObjects } from '../OpenSolarSystemAPI/config';
 import { featuredImage } from '../UnsplashAPI/config';
-import FiltersBar from './FiltersBar';
+
 
 // Hooks
 import { useFilteredObjects } from '../hooks/useFilteredObjects';
@@ -46,6 +48,16 @@ const Home = () => {
         <>
             <HeroSection image={featured_image}/>
             <FiltersBar setFilters={setFilters}/>
+            <Grid>
+                {objects.map(object => (
+                    <Thumb
+                        key={object.id}
+                        name={object.englishName}
+                        type={object.bodyType}
+                        clickable
+                    />
+                ))}
+            </Grid>
             <p>{ JSON.stringify(objects) }</p>
             <p>{ objects.length }</p>
         </>
