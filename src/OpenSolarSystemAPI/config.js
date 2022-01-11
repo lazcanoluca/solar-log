@@ -78,7 +78,7 @@ export const fetchFilteredObjects = async (
     // updated each time you set filters and click on "set filters" button
     { 
             include_body_types: { star, planets, dwarf_planets, asteroids, comets, moons },
-            // order_by,
+            order_by,
             // order_direction,
             // min_mass,
             // max_mass,
@@ -96,7 +96,8 @@ export const fetchFilteredObjects = async (
         +`${!asteroids ? '&filter[]=bodyType,neq,Asteroid' : ''}`
         +`${!comets ? '&filter[]=bodyType,neq,Comet' : ''}`
         +`${!moons ? '&filter[]=bodyType,neq,Moon' : ''}`
-        +`${`&page=${page},5`}`
+        +`&order=${order_by}`
+        +`&page=${page},20`
 
     console.log(url);
 

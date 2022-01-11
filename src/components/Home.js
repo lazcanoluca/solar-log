@@ -24,25 +24,9 @@ const Home = () => {
         setIsLoadingMore,
     } = useFilteredObjects();
 
-    const objectId = 'lune';
     const search_term = 'stars';
-    const body_type = 'Moon';
-
-    // const filters = filteredObjects;
-
-    // const objects = fetchObjects();
-    // const object = fetchObject(objectId);
-
-    // console.log(object);
-    // console.log(objects);
 
     const featured_image = featuredImage(search_term);
-
-    // const [objects, setObjects] = useState([]);
-
-    // useEffect(() => {
-    //     fetchFilteredObjects(filters).then(data => setObjects(data));
-    // }, [])
 
     return (
         <>
