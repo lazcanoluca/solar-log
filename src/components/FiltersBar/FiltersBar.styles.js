@@ -26,4 +26,5 @@ export const FilterOrderBy = styled.div`
     }
 `;
 
-export const FilterOrderDir = styled.div``;
+export const FilterOrderDir = styled.div`
+`;

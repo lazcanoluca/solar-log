@@ -1,3 +1,5 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSortNumericDown, faSortNumericUp } from "@fortawesome/free-solid-svg-icons";
 import React, { useState, useEffect } from 'react';
 
 import {
@@ -82,6 +84,8 @@ const FiltersBar = ({ setFilters }) => {
 // #endregion
 
 // HANDLE FILTER SELECTED ORDER DIRECTION
+const [isClicked, setIsClicked] = useState(false);
+
 
 // UPDATES FILTERS
 // #region
@@ -153,8 +157,12 @@ const FiltersBar = ({ setFilters }) => {
                     </FilterOrderBy>
 
                     <FilterOrderDir>
-                        <input type='checkbox' />
-                        <span><i className='fas fa-sort-numeric-down'></i></span>
+                        <FontAwesomeIcon
+                            icon={isClicked ? faSortNumericDown : faSortNumericUp}
+                            size='2x'
+                            className='desc'
+                            onClick={() => setIsClicked(prev => !prev)}
+                        />
                     </FilterOrderDir>
                 </FilterOrder>
 
