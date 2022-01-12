@@ -5,3 +5,4 @@ images of main, or api call to wikipedia image
 same icon on 'order by' and thumb
 sort icon
 background og thumb selon type of body
+range sliders logarithmics
