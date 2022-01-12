@@ -84,8 +84,7 @@ const FiltersBar = ({ setFilters }) => {
 // #endregion
 
 // HANDLE FILTER SELECTED ORDER DIRECTION
-const [isClicked, setIsClicked] = useState(false);
-
+const [orderDir, setOrderDir] = useState(false);
 
 // UPDATES FILTERS
 // #region
@@ -93,7 +92,7 @@ const [isClicked, setIsClicked] = useState(false);
         {
             include_body_types: bodyType, // use the filters set in previous hook. BACK TO ALL FALSE BC ITS INITIAL
             order_by: selectedOrderBy,
-            // order_direction: false,
+            order_direction: orderDir,
             // min_mass: 0,
             // max_mass: 0,
             // min_radius: 0,
@@ -106,7 +105,7 @@ const [isClicked, setIsClicked] = useState(false);
         const updatedFilteredObjects = {
             include_body_types: bodyType,
             order_by: selectedOrderBy,
-            // order_direction: false,
+            order_direction: orderDir,
             // min_mass: 0,
             // max_mass: 0,
             // min_radius: 0,
@@ -158,10 +157,9 @@ const [isClicked, setIsClicked] = useState(false);
 
                     <FilterOrderDir>
                         <FontAwesomeIcon
-                            icon={isClicked ? faSortNumericDown : faSortNumericUp}
+                            icon={orderDir ? faSortNumericUp : faSortNumericDown}
                             size='2x'
-                            className='desc'
-                            onClick={() => setIsClicked(prev => !prev)}
+                            onClick={() => setOrderDir(prev => !prev)}
                         />
                     </FilterOrderDir>
                 </FilterOrder>

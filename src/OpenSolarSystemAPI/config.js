@@ -79,7 +79,7 @@ export const fetchFilteredObjects = async (
     { 
             include_body_types: { star, planets, dwarf_planets, asteroids, comets, moons },
             order_by,
-            // order_direction,
+            order_direction,
             // min_mass,
             // max_mass,
             // min_radius,
@@ -96,7 +96,7 @@ export const fetchFilteredObjects = async (
         +`${!asteroids ? '&filter[]=bodyType,neq,Asteroid' : ''}`
         +`${!comets ? '&filter[]=bodyType,neq,Comet' : ''}`
         +`${!moons ? '&filter[]=bodyType,neq,Moon' : ''}`
-        +`&order=${order_by}`
+        +`&order=${order_by},${order_direction ? 'desc' : 'asc'}`
         +`&page=${page},20`
 
     console.log(url);
