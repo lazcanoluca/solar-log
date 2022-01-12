@@ -5,7 +5,7 @@ export const GlobalStyle = createGlobalStyle`
     @import url('https://fonts.googleapis.com/css2?family=Ubuntu');   
 
     :root {
-        --maxWidth: 1280px;
+        --maxWidth: 1080px;
         --white: #fff;
         --lightMain: #eee;
         --medMain: #353535;

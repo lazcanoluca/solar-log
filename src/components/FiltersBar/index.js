@@ -1,20 +1,31 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSortNumericDown, faSortNumericUp } from "@fortawesome/free-solid-svg-icons";
+import {
+    faSortNumericDown,
+    faSortNumericUp,
+    faSortAlphaDown,
+    faSortAlphaUp,
+    faCaretDown,
+    faCaretUp,
+} from "@fortawesome/free-solid-svg-icons";
 import React, { useState, useEffect } from 'react';
 
 import {
     Wrapper,
     Filters,
     FilterBodyTypes,
-    FilterApplyButton,
+    Button,
     FilterOrder,
     FilterOrderBy,
     FilterOrderDir,
+    ContentFilterOrder,
+    FilterRange,
+    ContentRange,
+    RangeMass,
 } from './FiltersBar.styles';
 
 const FiltersBar = ({ setFilters }) => {
 
-// #region
+// #region declarations
     const body_types = {
         star: 'Star',
         planets: 'Planets',
@@ -49,8 +60,7 @@ const FiltersBar = ({ setFilters }) => {
     };
 // #endregion
 
-// HANDLE FILTER BODY TYPES
-// #region
+// #region FILTER BODY TYPES
     const [bodyType, setBodyType] = useState(
         {
             star: true,
@@ -74,8 +84,7 @@ const FiltersBar = ({ setFilters }) => {
     };
 // #endregion
 
-// HANDLE FILTER SELECTED ORDER BY
-// #region
+// #region FILTER SELECTED ORDER BY
 
     const [selectedOrderBy, setSelectedOrderBy] = useState(
         'englishName'
@@ -83,18 +92,29 @@ const FiltersBar = ({ setFilters }) => {
 
 // #endregion
 
-// HANDLE FILTER SELECTED ORDER DIRECTION
+// #region FILTER SELECTED ORDER DIRECTION
 const [orderDir, setOrderDir] = useState(false);
+// #endregion
 
-// UPDATES FILTERS
-// #region
+// #region FILTER RANGE
+const [rangeMinRadius, setRangeMinRadius] = useState(0)
+const [rangeMaxRadius, setRangeMaxRadius] = useState(0)
+// #endregion
+
+// #region MANAGE HIDE
+const [hiddenInclude, setHiddenInclude] = useState(true);
+const [hiddenOrderBy, setHiddenOrderBy] = useState(true);
+const [hiddenRange, setHiddenRange] = useState(true);
+// #endregion
+
+// #region UPDATE FILTERS
     const [filteredObjects, setFilteredObjects] = useState(
         {
             include_body_types: bodyType, // use the filters set in previous hook. BACK TO ALL FALSE BC ITS INITIAL
             order_by: selectedOrderBy,
             order_direction: orderDir,
-            // min_mass: 0,
-            // max_mass: 0,
+            min_radius: rangeMinRadius,
+            max_radius: rangeMaxRadius,
             // min_radius: 0,
             // max_radius: 0,
             // search_term: '',
@@ -106,8 +126,8 @@ const [orderDir, setOrderDir] = useState(false);
             include_body_types: bodyType,
             order_by: selectedOrderBy,
             order_direction: orderDir,
-            // min_mass: 0,
-            // max_mass: 0,
+            min_radius: rangeMinRadius,
+            max_radius: rangeMaxRadius,
             // min_radius: 0,
             // max_radius: 0,
             // search_term: '',
@@ -126,49 +146,120 @@ const [orderDir, setOrderDir] = useState(false);
             <h1>Filters</h1>
             <Filters>
                 <FilterBodyTypes>
-                    {Object.entries(body_types).map( ([ key, param ], index) => (
-                        <li key={index}>
-                            <input
-                                type='checkbox'
-                                name={key}
-                                value={param}
-                                checked={bodyType[key]}
-                                onChange={() => handleOnChangeBodyTypes(key)}
-                            />
-                            <label>{param}</label>
-                        </li>
-                    ))}
+                    <div
+                        onClick={() => setHiddenInclude(prev => !prev)}
+                        className='title'
+                    >
+                        <h3>Include</h3>
+                        <FontAwesomeIcon
+                            icon={hiddenInclude ? faCaretDown : faCaretUp}
+                            size='2x'
+                        />
+                    </div>
+                    <div
+                        className={hiddenInclude ? 'hide' : ''}
+                    >
+                        {Object.entries(body_types).map( ([ key, param ], index) => (
+                            <li key={index}>
+                                <input
+                                    type='checkbox'
+                                    name={key}
+                                    value={param}
+                                    checked={bodyType[key]}
+                                    onChange={() => handleOnChangeBodyTypes(key)}
+                                />
+                                <label>{param}</label>
+                            </li>
+                        ))}
+                    </div>
                 </FilterBodyTypes>
 
                 <FilterOrder>
-                    <FilterOrderBy>
-                        <select
-                            value={selectedOrderBy}
-                            onChange={(event) => setSelectedOrderBy(event.target.value)}
-                        >
-                            {Object.entries(order_by).map( ([ key, param ], index) => (
-                                <option
-                                    key={index}
-                                    value={key}
-                                >{param}</option>
-                            ))}
-                        </select>
-                    </FilterOrderBy>
-
-                    <FilterOrderDir>
+                    <div
+                        onClick={() => setHiddenOrderBy(prev => !prev)}
+                        className='title'
+                    >
+                        <h3>Order by</h3>
                         <FontAwesomeIcon
-                            icon={orderDir ? faSortNumericUp : faSortNumericDown}
+                            icon={hiddenOrderBy ? faCaretDown : faCaretUp}
                             size='2x'
-                            onClick={() => setOrderDir(prev => !prev)}
                         />
-                    </FilterOrderDir>
+                    </div>
+                    <div
+                        className={hiddenOrderBy ? 'hide' : ''}
+                    >
+                        <FilterOrderBy>
+                            <select
+                                value={selectedOrderBy}
+                                onChange={(event) => setSelectedOrderBy(event.target.value)}
+                            >
+                                {Object.entries(order_by).map( ([ key, param ], index) => (
+                                    <option
+                                        key={index}
+                                        value={key}
+                                    >{param}</option>
+                                ))}
+                            </select>
+                        </FilterOrderBy>
+
+                        <FilterOrderDir>
+                            <FontAwesomeIcon
+                                icon={
+                                    (selectedOrderBy === 'englishName' || selectedOrderBy === 'bodyType')
+                                        ? (orderDir ? faSortAlphaUp : faSortAlphaDown)
+                                        : (orderDir ? faSortNumericUp : faSortNumericDown)
+                                }
+                                size='2x'
+                                onClick={() => setOrderDir(prev => !prev)}
+                            />
+                        </FilterOrderDir>
+                    </div>
                 </FilterOrder>
 
                 { /* <FilterSearchBar></FilterSearchBar> */}
-                <FilterApplyButton
-                    onClick={() => updateFilteredObjects()}
-                >Apply filter</FilterApplyButton>
+
+                <FilterRange>
+                    <div
+                        onClick={() => setHiddenRange(prev => !prev)}
+                        className='title'
+                    >
+                        <h3>Filter range</h3>
+                        <FontAwesomeIcon
+                            icon={hiddenRange ? faCaretDown : faCaretUp}
+                            size='2x'
+                        />
+                    </div>
+                    <div
+                        className={hiddenRange ? 'hide' : ''}
+                    >
+                        <div className='mass'>
+                            <p>Mean radius (in km):</p>
+                            <input
+                                type='number'
+                                placeholder='from'
+                                value={rangeMinRadius || ''}
+                                onChange={event => setRangeMinRadius(event.target.value)}
+                            />
+                            -
+                            <input
+                                type='number'
+                                placeholder='to'
+                                value={rangeMaxRadius || ''}
+                                onChange={event => setRangeMaxRadius(event.target.value)}
+                            />
+                        </div>
+                    </div>
+                </FilterRange>
             </Filters>
+            <div className='buttons'>
+                <Button
+                >Reset filters</Button>
+                <Button
+                    primary
+                    onClick={() => updateFilteredObjects()}
+                >Apply filters</Button>
+            </div>
+
         </Wrapper>
     )
 };

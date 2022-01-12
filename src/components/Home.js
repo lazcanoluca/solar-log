@@ -42,8 +42,6 @@ const Home = () => {
                     />
                 ))}
             </Grid>
-            <p>{ JSON.stringify(objects) }</p>
-            <p>{ objects.length }</p>
         </>
     )
 };
