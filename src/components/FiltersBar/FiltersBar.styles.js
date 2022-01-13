@@ -45,17 +45,39 @@ export const FilterBodyTypes = styled.div`
 `;
 
 export const Button = styled.button`
-    padding: .75rem 1.5rem;
+
     margin: 1rem;
     border-radius: 1.5rem;
     color: ${props => props.primary ? 'var(--darkMain)' : 'var(--lightMain)'};
     background-color: ${props => props.primary ? 'var(--lightMain)' : 'var(--darkMain)'};
     border: 2px solid ${props => props.primary ? 'var(--darkMain)' : 'var(--lightMain)'};
 
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+
+    overflow: hidden;
+
+    div {
+        background: var(--lightMain);
+        color: var(--darkMain);
+        padding: .75rem;
+        * {
+            color: var(--darkMain);
+            font-size: 1.5em;
+        }
+    }
+
+    p {
+        padding: .75rem 1.5rem .75rem .75rem;
+        color: ${props => props.primary ? 'var(--darkMain)' : 'var(--lightMain)'};
+    }
 
     :hover {
         cursor: pointer;
-        color: ${props => props.primary ? 'var(--darkMain)' : 'var(--darkMain)'};
+        p {
+            color: ${props => props.primary ? 'var(--darkMain)' : 'var(--darkMain)'};
+        }
         background-color: ${props => props.primary ? 'var(--lightMain)' : 'var(--lightMain)'};
         border: 2px solid ${props => props.primary ? 'var(--lightMain)' : 'var(--lightMain)'};
     }
@@ -83,5 +105,17 @@ export const FilterOrderDir = styled.div`
 export const FilterRange = styled.div`
     input {
         color: black;
+        width: 100%;
+        padding: .5rem 1rem;
+        border-radius: 1.5rem;
+    }
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    .set-range {
+        display: flex;
+        align-items: center;
     }
 `;

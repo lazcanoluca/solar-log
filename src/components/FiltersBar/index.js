@@ -6,6 +6,8 @@ import {
     faSortAlphaUp,
     faCaretDown,
     faCaretUp,
+    faTrashAlt,
+    faFilter,
 } from "@fortawesome/free-solid-svg-icons";
 import React, { useState, useEffect } from 'react';
 
@@ -234,30 +236,49 @@ const [hiddenRange, setHiddenRange] = useState(true);
                     >
                         <div className='mass'>
                             <p>Mean radius (in km):</p>
-                            <input
-                                type='number'
-                                placeholder='from'
-                                value={rangeMinRadius || ''}
-                                onChange={event => setRangeMinRadius(event.target.value)}
-                            />
-                            -
-                            <input
-                                type='number'
-                                placeholder='to'
-                                value={rangeMaxRadius || ''}
-                                onChange={event => setRangeMaxRadius(event.target.value)}
-                            />
+                            <div className='set-range'>
+                                <input
+                                    type='number'
+                                    placeholder='from'
+                                    value={rangeMinRadius || ''}
+                                    onChange={event => setRangeMinRadius(event.target.value)}
+                                />
+                                -
+                                <input
+                                    type='number'
+                                    placeholder='to'
+                                    value={rangeMaxRadius || ''}
+                                    onChange={event => setRangeMaxRadius(event.target.value)}
+                                />
+                            </div>
                         </div>
                     </div>
                 </FilterRange>
             </Filters>
             <div className='buttons'>
-                <Button
-                >Reset filters</Button>
+                <Button>
+                    <div className='icon'>
+                        <FontAwesomeIcon
+                            className='icons'
+                            icon={faTrashAlt}
+                            size='1x'
+                        />
+                    </div>
+                    <p>Reset filters</p>
+                </Button>
                 <Button
                     primary
                     onClick={() => updateFilteredObjects()}
-                >Apply filters</Button>
+                >
+                    <div className='icon'>
+                        <FontAwesomeIcon
+                            className='icons'
+                            icon={faFilter}
+                            size='1x'
+                        />
+                    </div>
+                    <p>Apply filters</p>
+                </Button>
             </div>
 
         </Wrapper>
