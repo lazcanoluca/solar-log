@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-    background-color: var(--darkMain);
     max-width: var(--maxWidth);
     margin: 0 auto;
 
@@ -12,6 +11,11 @@ export const Wrapper = styled.div`
         display: flex;
         justify-content: space-between;
         align-items: center;
+        padding: 0 1rem;
+        background-color: var(--lightMain);
+        * {
+            color: var(--darkMain);
+        }
     }
     .buttons {
         display: flex;
@@ -23,9 +27,10 @@ export const Filters = styled.div`
     width: 100%;
 
     & > * {
-        padding: 1rem;
         border: 2px solid;
+        border-radius: 1.5rem;
         break-inside: avoid-column;
+        overflow: hidden;
     }
 
     @media (min-width: 480px) {
@@ -46,6 +51,7 @@ export const FilterBodyTypes = styled.div`
 
 export const Button = styled.button`
 
+    height: 3rem;
     margin: 1rem;
     border-radius: 1.5rem;
     color: ${props => props.primary ? 'var(--darkMain)' : 'var(--lightMain)'};
@@ -108,6 +114,7 @@ export const FilterRange = styled.div`
         width: 100%;
         padding: .5rem 1rem;
         border-radius: 1.5rem;
+        border: 2px solid var(--darkMain);
     }
     input::-webkit-outer-spin-button,
     input::-webkit-inner-spin-button {
@@ -117,5 +124,39 @@ export const FilterRange = styled.div`
     .set-range {
         display: flex;
         align-items: center;
+    }
+`;
+
+export const FilterSearchTerm = styled.div``;
+
+export const SearchBar = styled.div`
+    border-radius: 1.5rem;
+    height: 3rem;
+    border: 2px solid var(--lightMain);
+
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+
+    overflow: hidden;
+
+    div {
+        background: var(--darkMain);
+        color: var(--lightMain);
+        padding: .75rem;
+        * {
+            color: var(--lightMain);
+            font-size: 1.2em;
+        }
+    }
+
+    input {
+        padding: .75rem 1.5rem .75rem .75rem;
+        width: 100%;
+        border: none;
+        color: var(--darkMain);
+        :focus {
+            outline: none;
+        }
     }
 `;

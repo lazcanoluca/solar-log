@@ -29,19 +29,21 @@ const Home = () => {
     const featured_image = featuredImage(search_term);
 
     return (
-        <>
+        <>  
             <HeroSection image={featured_image}/>
-            <FiltersBar setFilters={setFilters}/>
-            <Grid>
-                {objects.map(object => (
-                    <Thumb
-                        key={object.id}
-                        name={object.englishName}
-                        type={object.bodyType}
-                        clickable
-                    />
-                ))}
-            </Grid>
+            <div style={{position: 'relative', top: '-100px'}}>
+                <FiltersBar setFilters={setFilters}/>
+                <Grid>
+                    {objects.map(object => (
+                        <Thumb
+                            key={object.id}
+                            name={object.englishName}
+                            type={object.bodyType}
+                            clickable
+                        />
+                    ))}
+                </Grid>
+            </div>
         </>
     )
 };

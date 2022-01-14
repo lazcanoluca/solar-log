@@ -8,6 +8,7 @@ import {
     faCaretUp,
     faTrashAlt,
     faFilter,
+    faSearch
 } from "@fortawesome/free-solid-svg-icons";
 import React, { useState, useEffect } from 'react';
 
@@ -17,13 +18,19 @@ import {
     FilterBodyTypes,
     Button,
     FilterOrder,
-    FilterOrderBy,
+    //FilterOrderBy,
     FilterOrderDir,
     ContentFilterOrder,
     FilterRange,
     ContentRange,
     RangeMass,
+    FilterSearchTerm,
+    SearchBar
 } from './FiltersBar.styles';
+
+import DropdownCard from '../DropdownCard';
+import FilterInclude from '../FilterInclude';
+import FilterOrderBy from '../FilterOrderBy';
 
 const FiltersBar = ({ setFilters }) => {
 
@@ -86,35 +93,36 @@ const FiltersBar = ({ setFilters }) => {
     };
 // #endregion
 
-// #region FILTER SELECTED ORDER BY
+// // #region FILTER SELECTED ORDER BY
 
-    const [selectedOrderBy, setSelectedOrderBy] = useState(
-        'englishName'
-    );
+//     const [selectedOrderBy, setSelectedOrderBy] = useState(
+//         'englishName'
+//     );
 
-// #endregion
+// // #endregion
 
-// #region FILTER SELECTED ORDER DIRECTION
-const [orderDir, setOrderDir] = useState(false);
-// #endregion
+// // #region FILTER SELECTED ORDER DIRECTION
+// const [orderDir, setOrderDir] = useState(false);
+// // #endregion
 
 // #region FILTER RANGE
-const [rangeMinRadius, setRangeMinRadius] = useState(0)
-const [rangeMaxRadius, setRangeMaxRadius] = useState(0)
+const [rangeMinRadius, setRangeMinRadius] = useState(0);
+const [rangeMaxRadius, setRangeMaxRadius] = useState(0);
 // #endregion
 
 // #region MANAGE HIDE
 const [hiddenInclude, setHiddenInclude] = useState(true);
 const [hiddenOrderBy, setHiddenOrderBy] = useState(true);
 const [hiddenRange, setHiddenRange] = useState(true);
+const [hiddenSearch, setHiddenSearch] = useState(true);
 // #endregion
 
 // #region UPDATE FILTERS
     const [filteredObjects, setFilteredObjects] = useState(
         {
             include_body_types: bodyType, // use the filters set in previous hook. BACK TO ALL FALSE BC ITS INITIAL
-            order_by: selectedOrderBy,
-            order_direction: orderDir,
+            order_by: 'englishName',
+            order_direction: false,
             min_radius: rangeMinRadius,
             max_radius: rangeMaxRadius,
             // min_radius: 0,
@@ -126,8 +134,8 @@ const [hiddenRange, setHiddenRange] = useState(true);
     const updateFilteredObjects = () => {
         const updatedFilteredObjects = {
             include_body_types: bodyType,
-            order_by: selectedOrderBy,
-            order_direction: orderDir,
+            order_by: 'englishName', //selectedOrderBy,
+            order_direction: 'false', //orderDir,
             min_radius: rangeMinRadius,
             max_radius: rangeMaxRadius,
             // min_radius: 0,
@@ -176,6 +184,7 @@ const [hiddenRange, setHiddenRange] = useState(true);
                     </div>
                 </FilterBodyTypes>
 
+                {/*
                 <FilterOrder>
                     <div
                         onClick={() => setHiddenOrderBy(prev => !prev)}
@@ -216,7 +225,8 @@ const [hiddenRange, setHiddenRange] = useState(true);
                             />
                         </FilterOrderDir>
                     </div>
-                </FilterOrder>
+                </FilterOrder> 
+                */}
 
                 { /* <FilterSearchBar></FilterSearchBar> */}
 
@@ -254,6 +264,41 @@ const [hiddenRange, setHiddenRange] = useState(true);
                         </div>
                     </div>
                 </FilterRange>
+
+                <FilterSearchTerm>
+                    <div
+                        onClick={() => setHiddenSearch(prev => !prev)}
+                        className='title'
+                    >
+                        <h3>Search term</h3>
+                        <FontAwesomeIcon
+                            icon={hiddenSearch ? faCaretDown : faCaretUp}
+                            size='2x'
+                        />
+                    </div>
+                    <div
+                        className={hiddenSearch ? 'hide' : ''}
+                    >
+                        <SearchBar>
+                            <div
+                            
+                            >
+                                <FontAwesomeIcon
+                                    icon={faSearch}
+                                />
+                            </div>
+                            <input
+                                type='text'
+                                placeholder='Search object'
+                                // onChange={}
+                                // value={}
+                            />
+                        </SearchBar>
+                    </div>
+
+                </FilterSearchTerm>
+
+
             </Filters>
             <div className='buttons'>
                 <Button>
@@ -280,6 +325,9 @@ const [hiddenRange, setHiddenRange] = useState(true);
                     <p>Apply filters</p>
                 </Button>
             </div>
+
+            <DropdownCard title='Include' content={<FilterInclude />}/>
+            <DropdownCard title='Order by' content={<FilterOrderBy/>}/>
 
         </Wrapper>
     )
