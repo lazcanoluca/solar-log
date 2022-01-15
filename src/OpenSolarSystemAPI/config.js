@@ -82,9 +82,11 @@ export const fetchFilteredObjects = async (
             order_direction,
             min_radius,
             max_radius,
+            min_orbit,
+            max_orbit,
             // min_mass,
             // max_mass,
-            // search_term
+            search_term
     }) => {
 
     const page = '1';
@@ -98,6 +100,9 @@ export const fetchFilteredObjects = async (
         +`${!moons ? '&filter[]=bodyType,neq,Moon' : ''}`
         +`${min_radius ? `&filter[]=meanRadius,ge,${min_radius}` : ''}`
         +`${max_radius ? `&filter[]=meanRadius,le,${max_radius}` : ''}`
+        +`${min_orbit ? `&filter[]=sideralOrbit,ge,${min_radius}` : ''}`
+        +`${max_orbit ? `&filter[]=sideralOrbit,le,${max_radius}` : ''}`
+        +`${search_term ? `&filter[]=englishName,sw,${search_term}` : ''}`
         +`&order=${order_by},${order_direction ? 'desc' : 'asc'}`
         +`&page=${page},20`
 

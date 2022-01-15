@@ -9,7 +9,12 @@ import {
     faSortAlphaUp,
 } from "@fortawesome/free-solid-svg-icons";
 
-const FilterOrderBy = () => {
+const FilterOrderBy = ({
+    selectedOrderBy,
+    setSelectedOrderBy,
+    orderDir,
+    setOrderDir
+}) => {
 
     const order_by = {
         englishName: 'Name',
@@ -30,11 +35,11 @@ const FilterOrderBy = () => {
         bodyType: 'Body type'
     };
 
-    const [selectedOrderBy, setSelectedOrderBy] = useState(
-        'englishName'
-    );
+    // const [selectedOrderBy, setSelectedOrderBy] = useState(
+    //     'englishName'
+    // );
 
-    const [orderDir, setOrderDir] = useState(false);
+    // const [orderDir, setOrderDir] = useState(false);
 
     return (
         <Wrapper>

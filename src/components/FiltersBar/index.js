@@ -1,307 +1,129 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faSortNumericDown,
-    faSortNumericUp,
-    faSortAlphaDown,
-    faSortAlphaUp,
-    faCaretDown,
-    faCaretUp,
-    faTrashAlt,
-    faFilter,
-    faSearch
-} from "@fortawesome/free-solid-svg-icons";
 import React, { useState, useEffect } from 'react';
 
-import {
-    Wrapper,
-    Filters,
-    FilterBodyTypes,
-    Button,
-    FilterOrder,
-    //FilterOrderBy,
-    FilterOrderDir,
-    ContentFilterOrder,
-    FilterRange,
-    ContentRange,
-    RangeMass,
-    FilterSearchTerm,
-    SearchBar
-} from './FiltersBar.styles';
+import { Wrapper, Filters } from './FiltersBar.styles';
 
 import DropdownCard from '../DropdownCard';
 import FilterInclude from '../FilterInclude';
 import FilterOrderBy from '../FilterOrderBy';
+import FilterRange from '../FilterRange';
+import SearchBar from '../SearchBar';
 
 const FiltersBar = ({ setFilters }) => {
 
-// #region declarations
-    const body_types = {
-        star: 'Star',
-        planets: 'Planets',
-        dwarf_planets: 'Dwarf planets',
-        asteroids: 'Asteroids',
-        comets: 'Comets',
-        moons: 'Moons'
-    }
-
-    const order_by = {
-        englishName: 'Name',
-        // moons: 'Number of moons',
-        perihelion: 'Perihelion',
-        aphelion: 'Aphelion',
-        eccentricity: 'Eccentricity',
-        inclination: 'Inclination',
-        // mass: 'Mass',
-        // vol: 'Volume',
-        density: 'Density',
-        gravity: 'Gravity',
-        escape: 'Escape velocity',
-        meanRadius: 'Mean Radius',
-        sideralOrbit: 'Orbital period',
-        sideralRotation: 'Rotation period',
-        avgTemp: 'Average temperature',
-        bodyType: 'Body type'
-    };
-
-    const order_dir = {
-        'Ascending': false,
-        'Descending': true
-    };
-// #endregion
-
-// #region FILTER BODY TYPES
-    const [bodyType, setBodyType] = useState(
-        {
-            star: true,
-            planets: true,
-            dwarf_planets: true,
-            asteroids: true,
-            comets: true,
-            moons: true,
-        }
-    );
-
-    const handleOnChangeBodyTypes = (key) => {
-
-        const updatedBodyType = Object.fromEntries(Object.entries(bodyType).map(
-            ([ itemBodyType, state ]) => (key == itemBodyType
-                                                ? [itemBodyType, !state]
-                                                : [itemBodyType, state])
-        ));
-
-        setBodyType(updatedBodyType);
-    };
-// #endregion
-
-// // #region FILTER SELECTED ORDER BY
-
-//     const [selectedOrderBy, setSelectedOrderBy] = useState(
-//         'englishName'
-//     );
-
-// // #endregion
-
-// // #region FILTER SELECTED ORDER DIRECTION
-// const [orderDir, setOrderDir] = useState(false);
-// // #endregion
-
-// #region FILTER RANGE
+// #region RANGE
 const [rangeMinRadius, setRangeMinRadius] = useState(0);
 const [rangeMaxRadius, setRangeMaxRadius] = useState(0);
+
+const [rangeMinOrbit, setRangeMinOrbit] = useState(0);
+const [rangeMaxOrbit, setRangeMaxOrbit] = useState(0);
 // #endregion
 
-// #region MANAGE HIDE
-const [hiddenInclude, setHiddenInclude] = useState(true);
-const [hiddenOrderBy, setHiddenOrderBy] = useState(true);
-const [hiddenRange, setHiddenRange] = useState(true);
-const [hiddenSearch, setHiddenSearch] = useState(true);
+// #region SEARCH TERM
+const [searchTerm, setSearchTerm] = useState('');
 // #endregion
 
-// #region UPDATE FILTERS
-    const [filteredObjects, setFilteredObjects] = useState(
-        {
-            include_body_types: bodyType, // use the filters set in previous hook. BACK TO ALL FALSE BC ITS INITIAL
-            order_by: 'englishName',
-            order_direction: false,
-            min_radius: rangeMinRadius,
-            max_radius: rangeMaxRadius,
-            // min_radius: 0,
-            // max_radius: 0,
-            // search_term: '',
-        }
-    );
+// #region INCLUDE
+const [bodyType, setBodyType] = useState(
+    {
+        star: true,
+        planets: true,
+        dwarf_planets: true,
+        asteroids: true,
+        comets: true,
+        moons: true,
+    }
+);
+// #endregion
 
-    const updateFilteredObjects = () => {
+// #region ORDER BY
+const [selectedOrderBy, setSelectedOrderBy] = useState(
+    'englishName'
+);
+
+const [orderDir, setOrderDir] = useState(false);
+
+// #endregion
+
+// #region UPDATE
+    useEffect(() => {
         const updatedFilteredObjects = {
             include_body_types: bodyType,
-            order_by: 'englishName', //selectedOrderBy,
-            order_direction: 'false', //orderDir,
+            order_by: selectedOrderBy,
+            order_direction: orderDir,
             min_radius: rangeMinRadius,
             max_radius: rangeMaxRadius,
+            min_orbit: rangeMinOrbit,
+            max_orbit: rangeMaxOrbit,
             // min_radius: 0,
             // max_radius: 0,
-            // search_term: '',
+            search_term: searchTerm,
         };
         console.log('Updated filters to:', updatedFilteredObjects);
-        setFilteredObjects(updatedFilteredObjects);
-    };
+        
+        setFilters(updatedFilteredObjects);
+    }, [
+        bodyType,
+        selectedOrderBy,
+        orderDir,
+        rangeMinOrbit,
+        rangeMaxRadius,
+        rangeMinOrbit,
+        rangeMaxOrbit,
+        searchTerm
+    ]);
+// #endregion
 
-    useEffect(() => {
-        setFilters(filteredObjects);
-    }, [setFilters, filteredObjects]);
+// #region RESET FILTERS
+    const resetFilters = () => {
+        selectedOrderBy='englishName';
+    }
 // #endregion
 
     return (
         <Wrapper>
             <h1>Filters</h1>
             <Filters>
-                <FilterBodyTypes>
-                    <div
-                        onClick={() => setHiddenInclude(prev => !prev)}
-                        className='title'
-                    >
-                        <h3>Include</h3>
-                        <FontAwesomeIcon
-                            icon={hiddenInclude ? faCaretDown : faCaretUp}
-                            size='2x'
-                        />
-                    </div>
-                    <div
-                        className={hiddenInclude ? 'hide' : ''}
-                    >
-                        {Object.entries(body_types).map( ([ key, param ], index) => (
-                            <li key={index}>
-                                <input
-                                    type='checkbox'
-                                    name={key}
-                                    value={param}
-                                    checked={bodyType[key]}
-                                    onChange={() => handleOnChangeBodyTypes(key)}
-                                />
-                                <label>{param}</label>
-                            </li>
-                        ))}
-                    </div>
-                </FilterBodyTypes>
 
-                {/*
-                <FilterOrder>
-                    <div
-                        onClick={() => setHiddenOrderBy(prev => !prev)}
-                        className='title'
-                    >
-                        <h3>Order by</h3>
-                        <FontAwesomeIcon
-                            icon={hiddenOrderBy ? faCaretDown : faCaretUp}
-                            size='2x'
-                        />
-                    </div>
-                    <div
-                        className={hiddenOrderBy ? 'hide' : ''}
-                    >
-                        <FilterOrderBy>
-                            <select
-                                value={selectedOrderBy}
-                                onChange={(event) => setSelectedOrderBy(event.target.value)}
-                            >
-                                {Object.entries(order_by).map( ([ key, param ], index) => (
-                                    <option
-                                        key={index}
-                                        value={key}
-                                    >{param}</option>
-                                ))}
-                            </select>
-                        </FilterOrderBy>
+                <DropdownCard
+                    title='Include'
+                    content={
+                        <FilterInclude
+                            bodyType={bodyType}
+                            setBodyType={setBodyType}
+                        />}
+                />
 
-                        <FilterOrderDir>
-                            <FontAwesomeIcon
-                                icon={
-                                    (selectedOrderBy === 'englishName' || selectedOrderBy === 'bodyType')
-                                        ? (orderDir ? faSortAlphaUp : faSortAlphaDown)
-                                        : (orderDir ? faSortNumericUp : faSortNumericDown)
-                                }
-                                size='2x'
-                                onClick={() => setOrderDir(prev => !prev)}
-                            />
-                        </FilterOrderDir>
-                    </div>
-                </FilterOrder> 
-                */}
+                <DropdownCard
+                    title='Order by'
+                    content={
+                        <FilterOrderBy
+                            selectedOrderBy={selectedOrderBy}
+                            setSelectedOrderBy={setSelectedOrderBy}
+                            orderDir={orderDir}
+                            setOrderDir={setOrderDir}
+                        />}
+                />
 
-                { /* <FilterSearchBar></FilterSearchBar> */}
-
-                <FilterRange>
-                    <div
-                        onClick={() => setHiddenRange(prev => !prev)}
-                        className='title'
-                    >
-                        <h3>Filter range</h3>
-                        <FontAwesomeIcon
-                            icon={hiddenRange ? faCaretDown : faCaretUp}
-                            size='2x'
-                        />
-                    </div>
-                    <div
-                        className={hiddenRange ? 'hide' : ''}
-                    >
-                        <div className='mass'>
-                            <p>Mean radius (in km):</p>
-                            <div className='set-range'>
-                                <input
-                                    type='number'
-                                    placeholder='from'
-                                    value={rangeMinRadius || ''}
-                                    onChange={event => setRangeMinRadius(event.target.value)}
-                                />
-                                -
-                                <input
-                                    type='number'
-                                    placeholder='to'
-                                    value={rangeMaxRadius || ''}
-                                    onChange={event => setRangeMaxRadius(event.target.value)}
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </FilterRange>
-
-                <FilterSearchTerm>
-                    <div
-                        onClick={() => setHiddenSearch(prev => !prev)}
-                        className='title'
-                    >
-                        <h3>Search term</h3>
-                        <FontAwesomeIcon
-                            icon={hiddenSearch ? faCaretDown : faCaretUp}
-                            size='2x'
-                        />
-                    </div>
-                    <div
-                        className={hiddenSearch ? 'hide' : ''}
-                    >
-                        <SearchBar>
-                            <div
-                            
-                            >
-                                <FontAwesomeIcon
-                                    icon={faSearch}
-                                />
-                            </div>
-                            <input
-                                type='text'
-                                placeholder='Search object'
-                                // onChange={}
-                                // value={}
-                            />
-                        </SearchBar>
-                    </div>
-
-                </FilterSearchTerm>
-
+                <DropdownCard
+                    title='Range'
+                    content={
+                        <FilterRange
+                            rangeMinRadius={rangeMinRadius}
+                            setRangeMinRadius={setRangeMinRadius}
+                            rangeMaxRadius={rangeMaxRadius}
+                            setRangeMaxRadius={setRangeMaxRadius}
+                            rangeMinOrbit={rangeMinOrbit}
+                            setRangeMinOrbit={setRangeMinOrbit}
+                            rangeMaxOrbit={rangeMaxOrbit}
+                            setRangeMaxOrbit={setRangeMaxOrbit}
+                        />}
+                />
 
             </Filters>
-            <div className='buttons'>
-                <Button>
+            {/* <div className='buttons'>
+                <Button
+                    onClick={() => resetFilters()}
+                >
                     <div className='icon'>
                         <FontAwesomeIcon
                             className='icons'
@@ -313,7 +135,7 @@ const [hiddenSearch, setHiddenSearch] = useState(true);
                 </Button>
                 <Button
                     primary
-                    onClick={() => updateFilteredObjects()}
+                    //onClick={() => updateFilteredObjects()}
                 >
                     <div className='icon'>
                         <FontAwesomeIcon
@@ -324,10 +146,9 @@ const [hiddenSearch, setHiddenSearch] = useState(true);
                     </div>
                     <p>Apply filters</p>
                 </Button>
-            </div>
+            </div> */}
 
-            <DropdownCard title='Include' content={<FilterInclude />}/>
-            <DropdownCard title='Order by' content={<FilterOrderBy/>}/>
+            <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
 
         </Wrapper>
     )

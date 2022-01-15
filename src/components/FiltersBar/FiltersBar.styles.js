@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
     max-width: var(--maxWidth);
     margin: 0 auto;
+    padding: 20px;
 
     .hide {
         display: none;
@@ -25,24 +26,35 @@ export const Wrapper = styled.div`
 
 export const Filters = styled.div`
     width: 100%;
+    margin: 20px 0;
+
+    display: grid;
+    grid-gap: 20px;
+    align-items: start;
 
     & > * {
-        border: 2px solid;
-        border-radius: 1.5rem;
-        break-inside: avoid-column;
-        overflow: hidden;
+        width: 100%;
     }
 
-    @media (min-width: 480px) {
-        column-count: 2;
-        column-fill: balance|auto;
+    @media (min-width: 640px) {
+        grid-gap: 20px;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-areas: 'A B C';
     }
-    @media (min-width: 720px) {
+
+    /* @media (min-width: 640px) {
         column-count: 3;
+        & > * {
+            break-inside: avoid-column;
+            margin: 0 auto;
+        }
+    } */
+    /* @media (min-width: 720px) {
+        column-count: 4;
     }
     @media (min-width: 952px) {
         column-count: 4;
-    }
+    } */
 `;
 
 export const FilterBodyTypes = styled.div`
