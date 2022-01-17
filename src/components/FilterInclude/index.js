@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Wrapper, Content, BodyList } from './FilterInclude.styles';
 
 const FilterInclude = ({bodyType, setBodyType}) => {

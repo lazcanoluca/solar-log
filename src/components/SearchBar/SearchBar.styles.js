@@ -1,10 +1,13 @@
 import styled from "styled-components";
 
-export const Wrapper = styled.div``;
+export const Wrapper = styled.div`
+    width: 100%;
+`;
 
 export const Content = styled.div`
     border-radius: 1.5rem;
     height: 3rem;
+    width: 100%;
     border: 2px solid var(--lightMain);
 
     display: flex;

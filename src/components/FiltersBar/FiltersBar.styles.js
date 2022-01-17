@@ -18,10 +18,6 @@ export const Wrapper = styled.div`
             color: var(--darkMain);
         }
     }
-    .buttons {
-        display: flex;
-        justify-content: flex-end;
-    }
 `;
 
 export const Filters = styled.div`
@@ -55,6 +51,21 @@ export const Filters = styled.div`
     @media (min-width: 952px) {
         column-count: 4;
     } */
+`;
+
+export const Bottom = styled.div`
+    display: grid;
+    grid-gap: 20px;
+
+    Button {
+        width: 100%;
+    }
+
+    @media (min-width: 490px) {
+        grid-template-columns: auto 12rem;
+        column-gap: 20px;
+        /* justify-content: space-between; */
+    }
 `;
 
 export const FilterBodyTypes = styled.div`
@@ -145,6 +156,7 @@ export const SearchBar = styled.div`
     border-radius: 1.5rem;
     height: 3rem;
     border: 2px solid var(--lightMain);
+    width: 100%;
 
     display: flex;
     align-items: stretch;

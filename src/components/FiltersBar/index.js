@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
-import { Wrapper, Filters } from './FiltersBar.styles';
+import { Wrapper, Filters, Bottom } from './FiltersBar.styles';
 
 import DropdownCard from '../DropdownCard';
 import FilterInclude from '../FilterInclude';
 import FilterOrderBy from '../FilterOrderBy';
 import FilterRange from '../FilterRange';
 import SearchBar from '../SearchBar';
+import Button from '../Button';
 
 const FiltersBar = ({ setFilters }) => {
 
@@ -120,35 +121,11 @@ const [orderDir, setOrderDir] = useState(false);
                 />
 
             </Filters>
-            {/* <div className='buttons'>
-                <Button
-                    onClick={() => resetFilters()}
-                >
-                    <div className='icon'>
-                        <FontAwesomeIcon
-                            className='icons'
-                            icon={faTrashAlt}
-                            size='1x'
-                        />
-                    </div>
-                    <p>Reset filters</p>
-                </Button>
-                <Button
-                    primary
-                    //onClick={() => updateFilteredObjects()}
-                >
-                    <div className='icon'>
-                        <FontAwesomeIcon
-                            className='icons'
-                            icon={faFilter}
-                            size='1x'
-                        />
-                    </div>
-                    <p>Apply filters</p>
-                </Button>
-            </div> */}
 
-            <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
+            <Bottom>
+                <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
+                <Button resetFilters={resetFilters} />
+            </Bottom>
 
         </Wrapper>
     )
