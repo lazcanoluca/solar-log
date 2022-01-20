@@ -6,3 +6,5 @@ same icon on 'order by' and thumb
 sort icon
 background og thumb selon type of body
 range sliders logarithmics
+favorite save on local memory
+3d planet on description
