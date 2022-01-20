@@ -5,11 +5,11 @@ import HeroSection from './HeroSection';
 import FiltersBar from './FiltersBar';
 import Grid from './Grid';
 import Thumb from './Thumb';
+import LoadMore from './LoadMore';
 // API
 import { fetchObject, fetchObjects, fetchType, fetchFilteredObjects } from '../OpenSolarSystemAPI/config';
 import { featuredImage } from '../UnsplashAPI/config';
-import { MeanOrbit, Millions } from '../helpers';
-
+import { MeanOrbit, Millions, Thousands } from '../helpers';
 
 // Hooks
 import { useFilteredObjects } from '../hooks/useFilteredObjects';
@@ -38,15 +38,18 @@ const Home = () => {
                     {objects.map(object => (
                         <Thumb
                             key={object.id}
-                            name={object.englishName}
+                            name={object.englishName ? object.englishName : object.alternativeName}
                             type={object.bodyType}
                             radius={object.meanRadius}
-                            // orbit={1}
-                            orbit={Millions(MeanOrbit(object.perihelion, object.aphelion))}
+                            orbit={MeanOrbit(object.perihelion, object.aphelion)}
+                            gravity={object.gravity}
+                            moons={object.moons && object.moons.length}
+                            around={object.aroundPlanet && object.aroundPlanet.planet}
                             clickable
                         />
                     ))}
                 </Grid>
+                <LoadMore setIsLoadingMore={setIsLoadingMore} />
             </div>
         </>
     )

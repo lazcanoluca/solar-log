@@ -18,23 +18,25 @@ export const Wrapper = styled.div`
 
     h3, p {
         color: var(--lightMain);
-        z-index: 100;
     }
 
     h3 {
         font-size: 1.5rem;
-    }
-
-    .a {
-        z-index: 1000;
-    }
-
-    p {
-        margin-top: 5px;
+        margin-top: 10px;
     }
 
     ul {
         list-style: none;
+    }
+
+    li {
+        break-inside: avoid-column;
+        border-bottom: 1px solid var(--lightMain);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: .5rem;
+        padding-bottom: 1rem;
     }
 
     :hover {
@@ -45,5 +47,10 @@ export const Wrapper = styled.div`
     .bottom {
         padding: 15px;
         column-count: 2;
+    }
+
+    .value {
+        font-size: 1.3em;
+        margin-top: 10px;
     }
 `;

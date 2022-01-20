@@ -5,6 +5,7 @@ export const Wrapper = styled.div`
     border-radius: 1.5rem;
     break-inside: avoid-column;
     overflow: hidden;
+    cursor: pointer;
 
     .hide {
         display: none;

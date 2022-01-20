@@ -2,12 +2,15 @@ import React, { useState, useEffect } from 'react';
 
 import { Wrapper, Filters, Bottom } from './FiltersBar.styles';
 
+import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+
 import DropdownCard from '../DropdownCard';
 import FilterInclude from '../FilterInclude';
 import FilterOrderBy from '../FilterOrderBy';
 import FilterRange from '../FilterRange';
 import SearchBar from '../SearchBar';
 import Button from '../Button';
+import { setSelectionRange } from '@testing-library/user-event/dist/utils';
 
 const FiltersBar = ({ setFilters }) => {
 
@@ -76,8 +79,24 @@ const [orderDir, setOrderDir] = useState(false);
 
 // #region RESET FILTERS
     const resetFilters = () => {
-        selectedOrderBy='englishName';
-    }
+        setSearchTerm('');
+        setRangeMinRadius(0);
+        setRangeMaxRadius(0);
+        setRangeMinOrbit(0);
+        setRangeMaxOrbit(0);
+        setBodyType(
+            {
+                star: true,
+                planets: true,
+                dwarf_planets: true,
+                asteroids: true,
+                comets: true,
+                moons: true,
+            }
+        );
+        setSelectedOrderBy('englishName');
+        setOrderDir(false);
+    };
 // #endregion
 
     return (
@@ -124,7 +143,7 @@ const [orderDir, setOrderDir] = useState(false);
 
             <Bottom>
                 <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
-                <Button resetFilters={resetFilters} />
+                <Button text='Reset filters' callback={resetFilters} icon={faTrashAlt} />
             </Bottom>
 
         </Wrapper>
