@@ -21,6 +21,7 @@ const Home = () => {
         objects,
         loading,
         error,
+        lastPage,
         setFilters,
         setIsLoadingMore,
     } = useFilteredObjects();
@@ -49,7 +50,7 @@ const Home = () => {
                         />
                     ))}
                 </Grid>
-                <LoadMore setIsLoadingMore={setIsLoadingMore} />
+                {!lastPage && <LoadMore setIsLoadingMore={setIsLoadingMore} />}
             </div>
         </>
     )

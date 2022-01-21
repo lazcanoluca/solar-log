@@ -8,8 +8,7 @@ import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 const LoadMore = ({setIsLoadingMore}) => {
     
     const func = () => {
-        // setIsLoadingMore(true);
-        console.log('p');
+        setIsLoadingMore(true);
     }
     
     return(

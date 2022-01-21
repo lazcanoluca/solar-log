@@ -9,24 +9,29 @@ export const useFilteredObjects = () => {
     const [error, setError] = useState(false);
     const [isLoadingMore, setIsLoadingMore] = useState(false);
     const [page, setPage] = useState(1);
+    const [lastPage, setLastPage] = useState(false); 
 
-    const fetchObjects = async (filters) => {
+    const fetchObjects = async (pagina, filters) => {
         try {
             setError(false);
             setLoading(true);
+            setPage(pagina);
 
-            console.log('here with filters:', filters);
-            const objects = await fetchFilteredObjects(filters);
+            console.log('here with filters:', filters, ' and page number ', pagina);
+            const objects = await fetchFilteredObjects(pagina,{filters});
 
-            // setObjects(prev => (
-            //     page > 1 ? [...prev, ...objects] : objects
-            // ));
+            setObjects(prev => (
+                pagina > 1 ? [...prev, ...objects] : objects
+            ));
+
+            objects.length < 20 && setLastPage(true);
 
             console.log('Objects set:', objects);
-            setObjects(objects);
+            // setObjects(objects);
         } catch (error) {
             setError(true);
-            console.log('error')
+            // console.log('error');
+            console.log('error', error.stack, error.name, error.message)
         }
         setLoading(false);
         //fetchFilteredObjects(filters).then(data => setObjects(data));
@@ -34,18 +39,19 @@ export const useFilteredObjects = () => {
 
     // Initial render
     useEffect(() => {
-        fetchObjects(filters);
-        // setPage(1);
-        console.log('fetching from api with the following filters:', filters);
+        fetchObjects(1, filters);
+        setLastPage(false);
+        //console.log('fetching from api with the following filters:', filters);
     }, [filters]);
 
     // Load more
-    // useEffect(() => {
-    //     if (!isLoadingMore) return;
+    useEffect(() => {
+        if (!isLoadingMore) return;
 
-    //     fetchObjects(page+1, filters)
-    //     setIsLoadingMore(false);
-    // }, [isLoadingMore])
+        fetchObjects(page+1, filters)
+        console.log('fetching from ', page+1, ' page')
+        setIsLoadingMore(false);
+    }, [isLoadingMore])
 
-    return { filters, objects, loading, error, setFilters, setIsLoadingMore };
+    return { filters, objects, loading, error, lastPage, setFilters, setIsLoadingMore };
 };
