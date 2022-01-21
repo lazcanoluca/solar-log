@@ -17,7 +17,6 @@ export const useFilteredObjects = () => {
             setLoading(true);
             setPage(pagina);
 
-            console.log('here with filters:', filters, ' and page number ', pagina);
             const objects = await fetchFilteredObjects(pagina,{filters});
 
             setObjects(prev => (
@@ -25,23 +24,17 @@ export const useFilteredObjects = () => {
             ));
 
             objects.length < 20 && setLastPage(true);
-
-            console.log('Objects set:', objects);
-            // setObjects(objects);
         } catch (error) {
             setError(true);
-            // console.log('error');
             console.log('error', error.stack, error.name, error.message)
         }
         setLoading(false);
-        //fetchFilteredObjects(filters).then(data => setObjects(data));
     };
 
     // Initial render
     useEffect(() => {
         fetchObjects(1, filters);
         setLastPage(false);
-        //console.log('fetching from api with the following filters:', filters);
     }, [filters]);
 
     // Load more

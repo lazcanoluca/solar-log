@@ -107,9 +107,9 @@ export const fetchFilteredObjects = async (
         +`${max_orbit ? `&filter[]=sideralOrbit,le,${max_radius}` : ''}`
         +`${search_term ? `&filter[]=englishName,sw,${search_term}` : ''}`
         +`&order=${order_by},${order_direction ? 'desc' : 'asc'}`
-        +`&page=${page},20`
+        +`&page=${page},20`;
 
-    console.log(url);
+    // console.log(url);
 
     return await fetch(url)
         .then(response => response.json())

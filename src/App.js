@@ -10,8 +10,13 @@ import { GlobalStyle } from './GlobalStyle';
 const App = () => (
   <div>
     <GlobalStyle />
-    <Header />
+    <header>
+      <Header />
+    </header>
     <Home />
+    <footer>
+      
+    </footer>
   </div>
 );
 

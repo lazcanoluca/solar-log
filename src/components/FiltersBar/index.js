@@ -62,7 +62,6 @@ const [orderDir, setOrderDir] = useState(false);
             // max_radius: 0,
             search_term: searchTerm,
         };
-        console.log('Updated filters to:', updatedFilteredObjects);
         
         setFilters(updatedFilteredObjects);
     }, [
