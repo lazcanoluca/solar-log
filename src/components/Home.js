@@ -39,6 +39,7 @@ const Home = () => {
                     {objects.map(object => (
                         <Thumb
                             key={object.id}
+                            id={object.id}
                             name={object.englishName ? object.englishName : object.alternativeName}
                             type={object.bodyType}
                             radius={object.meanRadius}

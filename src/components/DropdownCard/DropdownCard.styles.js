@@ -19,7 +19,8 @@ export const Title = styled.div`
 
     padding: 0 1rem;
     background-color: var(--lightMain);
-
+    background-clip: padding-box;
+    
     * {
         color: var(--darkMain);
     }

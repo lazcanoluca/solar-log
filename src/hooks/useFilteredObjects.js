@@ -24,6 +24,7 @@ export const useFilteredObjects = () => {
             ));
 
             objects.length < 20 && setLastPage(true);
+            console.log(objects);
         } catch (error) {
             setError(true);
             console.log('error', error.stack, error.name, error.message)
