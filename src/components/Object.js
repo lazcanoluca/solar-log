@@ -47,7 +47,7 @@ const Object = () => {
         //         clickable
         //     />
         // </>
-        <p>lol</p>
+        <p>Work in progress</p>
     )
 };
 

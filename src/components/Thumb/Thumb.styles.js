@@ -7,13 +7,15 @@ export const Wrapper = styled.div`
     border-radius: 1rem;
     border: solid 2px var(--lightMain);
 
+    h1, h2, h3, p {
+        text-decoration: underline var(--darkMain); /* 'none' doesn't work, wtf!!! */
+    }
+
     .top {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: flex-end;
-        /* background-color: red; */
-        /* z-index: 1; */
     }
 
     h3, p {
