@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Wrapper, Content, OrderByList, OrderDirIcon } from './FilterOrderBy.styles';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

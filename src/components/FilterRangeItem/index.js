@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Wrapper, Content } from './FilterRangeItem.styles';
 
 const FilterRangeItem = ({ range_name, max, setMax, min, setMin }) => {

@@ -15,7 +15,7 @@ const FilterInclude = ({bodyType, setBodyType}) => {
     const handleOnChangeBodyTypes = (key) => {
 
         const updatedBodyType = Object.fromEntries(Object.entries(bodyType).map(
-            ([ itemBodyType, state ]) => (key == itemBodyType
+            ([ itemBodyType, state ]) => (key === itemBodyType
                                                 ? [itemBodyType, !state]
                                                 : [itemBodyType, state])
         ));

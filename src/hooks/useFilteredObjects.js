@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { fetchFilteredObjects } from '../OpenSolarSystemAPI/config';
 
 
@@ -45,7 +45,7 @@ export const useFilteredObjects = () => {
         fetchObjects(page+1, filters)
         console.log('fetching from ', page+1, ' page')
         setIsLoadingMore(false);
-    }, [isLoadingMore])
+    }, [isLoadingMore, page, filters])
 
     return { filters, objects, loading, error, lastPage, setFilters, setIsLoadingMore };
 };

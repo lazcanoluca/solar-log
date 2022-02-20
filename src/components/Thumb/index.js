@@ -27,14 +27,14 @@ const Thumb = ({id,
                         <p>Radius (km)</p>
                         <p className='value'>{radius >= 1000 ? Thousands(radius)+'K' : radius}</p>
                     </li>
-                    { type != 'Moon' &&
+                    { type !== 'Moon' &&
                         <li>
                             <p>Orbit (km)</p>
                             <p className='value'>{orbit >= 1000000000 ? Billions(orbit)+'B'
                                 : orbit >=1000000 ? Millions(orbit)+'M' : orbit}</p>
                         </li>
                     }
-                    { type != 'Moon' &&
+                    { type !== 'Moon' &&
                         <li>
                             <p>Orbit (AU)</p>
                             <p className='value'>{(orbit/150000000).toPrecision(2)}</p>
@@ -48,13 +48,13 @@ const Thumb = ({id,
                         <p>Gravity (g)</p>
                         <p className='value'>{(gravity/9.8).toPrecision(2)}</p>
                     </li>
-                    {type != 'Moon' &&
+                    {type !== 'Moon' &&
                         <li>
                             <p>Moons</p>
                             <p className='value'>{moons ? moons : '-'}</p>
                         </li>
                     }
-                    {type == 'Moon' &&
+                    {type === 'Moon' &&
                         <li>
                             <p>Around</p>
                             <p className='value'>{around.charAt(0).toUpperCase() + around.substring(1)}</p>

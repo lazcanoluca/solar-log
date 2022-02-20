@@ -81,12 +81,12 @@ const ObjectInfo = ({
                                     <p>Orbit</p>
                                 </li>
                             }
-                            {type != 'Moon' &&
+                            {type !== 'Moon' &&
                                 <li>
                                     <p>Moons</p>
                                 </li>
                             }
-                            {type == 'Moon' &&
+                            {type === 'Moon' &&
                                 <li>
                                     <p>Around</p>
                                     <p className='value'>{around.charAt(0).toUpperCase() + around.substring(1)}</p>

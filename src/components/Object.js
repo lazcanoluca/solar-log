@@ -4,35 +4,34 @@ import React, { useEffect, useState } from 'react';
 
 
 // Components
-import HeroSection from './HeroSection';
-import FiltersBar from './FiltersBar';
-import Grid from './Grid';
-import Thumb from './Thumb';
-import LoadMore from './LoadMore';
-import ObjectInfo from './ObjectInfo';
+// import HeroSection from './HeroSection';
+// import FiltersBar from './FiltersBar';
+// import Grid from './Grid';
+// import Thumb from './Thumb';
+// import LoadMore from './LoadMore';
+// import ObjectInfo from './ObjectInfo';
 // API
-import { fetchObject, fetchObjects, fetchType, fetchFilteredObjects } from '../OpenSolarSystemAPI/config';
-import { featuredImage } from '../UnsplashAPI/config';
-import { MeanOrbit, Millions, Thousands } from '../helpers';
+//import { fetchObject, fetchObjects, fetchType, fetchFilteredObjects } from '../OpenSolarSystemAPI/config';
+// import { featuredImage } from '../UnsplashAPI/config';
 
-// Hooks
-import { useFilteredObjects } from '../hooks/useFilteredObjects';
+// // Hooks
+// import { useFilteredObjects } from '../hooks/useFilteredObjects';
 
 const Object = () => {
 
-    const {
-        filters,
-        objects,
-        loading,
-        error,
-        lastPage,
-        setFilters,
-        setIsLoadingMore,
-    } = useFilteredObjects();
+    // const {
+    //     filters,
+    //     objects,
+    //     loading,
+    //     error,
+    //     lastPage,
+    //     setFilters,
+    //     setIsLoadingMore,
+    // } = useFilteredObjects();
 
-    const search_term = 'stars';
+    // const search_term = 'stars';
 
-    const featured_image = featuredImage(search_term);
+    // const featured_image = featuredImage(search_term);
 
     return (
         // <>  

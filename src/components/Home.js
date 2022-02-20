@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 // Components
 import HeroSection from './HeroSection';
@@ -7,9 +7,9 @@ import Grid from './Grid';
 import Thumb from './Thumb';
 import LoadMore from './LoadMore';
 // API
-import { fetchObject, fetchObjects, fetchType, fetchFilteredObjects } from '../OpenSolarSystemAPI/config';
+//import { fetchObject, fetchObjects, fetchType, fetchFilteredObjects } from '../OpenSolarSystemAPI/config';
 import { featuredImage } from '../UnsplashAPI/config';
-import { MeanOrbit, Millions, Thousands } from '../helpers';
+import { MeanOrbit } from '../helpers';
 
 // Hooks
 import { useFilteredObjects } from '../hooks/useFilteredObjects';
@@ -17,10 +17,10 @@ import { useFilteredObjects } from '../hooks/useFilteredObjects';
 const Home = () => {
 
     const {
-        filters,
+        //filters,
         objects,
-        loading,
-        error,
+        //loading,
+        //error,
         lastPage,
         setFilters,
         setIsLoadingMore,

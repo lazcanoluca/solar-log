@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Wrapper, Content } from './SearchBar.styles';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

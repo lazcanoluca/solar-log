@@ -10,7 +10,6 @@ import FilterOrderBy from '../FilterOrderBy';
 import FilterRange from '../FilterRange';
 import SearchBar from '../SearchBar';
 import Button from '../Button';
-import { setSelectionRange } from '@testing-library/user-event/dist/utils';
 
 const FiltersBar = ({ setFilters }) => {
 
@@ -68,11 +67,12 @@ const [orderDir, setOrderDir] = useState(false);
         bodyType,
         selectedOrderBy,
         orderDir,
-        rangeMinOrbit,
+        rangeMinRadius,
         rangeMaxRadius,
         rangeMinOrbit,
         rangeMaxOrbit,
-        searchTerm
+        searchTerm,
+        setFilters
     ]);
 // #endregion
 

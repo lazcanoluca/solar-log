@@ -19,7 +19,7 @@ export const fetchType = async (body_type) => {
     return await fetch(`${ALL_BODIES_URL}/?filter[]=bodyType`)
         .then(response => response.json())
         .then(response => response.bodies)
-        .then(response => response.filter(object => object.bodyType == body_type))
+        .then(response => response.filter(object => object.bodyType === body_type))
 };
 
 /* FILTERS:
